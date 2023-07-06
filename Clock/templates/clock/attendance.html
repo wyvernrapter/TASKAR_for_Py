@@ -1,0 +1,107 @@
+{% extends "./_base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+{{ form.certifications.errors }}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $.ajax({
+        url: "/index/",
+        dataType: "json",
+        success: function(data) {
+          $('#current-time').text(data.current_time);
+        }
+      });
+    });
+  </script>
+
+    <style>
+        .menu {
+          display: flex;
+          justify-content: space-between;
+          border-top: 1px solid black;
+          border-bottom: 1px solid black;
+          padding: 10px 0;
+          width:450px;
+          margin-top
+        }
+
+        .menu-item {
+          flex-basis: 24%;
+          text-align: center;
+          border-left: 1px solid black;
+          padding: 5px 0;
+        }
+
+        .menu-item:first-child {
+          border-left: none;
+        }
+
+        .menu-link{
+          color:black;
+        }
+    </style>
+    <title>TASKAR_勤怠打刻</title>
+</head>
+<body>
+    <center>
+        <div class="menu">
+            <div class="menu-item">
+                <a class="menu-link" href="#">打刻画面</a>
+            </div>
+            <div class="menu-item">
+                <a class="menu-link" href="#">シフト確認</a>
+            </div>
+            <div class="menu-item">
+                <a class="menu-link" href="#">申請画面</a>
+            </div>
+            <div class="menu-item">
+                <a class="menu-link" href="#">出勤簿</a>
+            </div>
+        </div>
+        <div style="width:450px; margin-top:10px;">
+            <hr>
+            <center><h1>打刻</h1></center>
+            <hr>
+                <center>
+                <h3>{% now "DATE_FORMAT" %}</h3>
+                <h3>{% now "D曜日" %}</h3>
+                <h1>{% now "H:i" %}</h1>
+                <div>
+                    <h1>{{ current_time }}</h1>
+                    {% if message %}
+                        <p>{{ message }}</p>
+                    {% endif %}
+                    <form method="post" action="{% url 'index' %}">
+            <!--            {% csrf_token %}-->
+                        <button style="width:100px" class="btn btn-lg btn-primary" type="submit">打刻</button>
+                    </form>
+                </div>
+                <hr>
+                <h6>打刻グループ</h6>
+                <select name="work-group" id="work-g">
+                    <option value="0">フロンティア何某</option>
+                    <option value="1">悪夢道</option>
+                    <option value="2">F**king-D</option>
+                </select>
+                <hr>
+                <h6>出勤形態</h6>
+                <select name="work-place" id="work-p">
+                    <option value="1">出社</option>
+                    <option value="2">在宅</option>
+                </select>
+                <hr>
+                <h6>当日交通費</h6>
+                    <input type="text">
+                <hr>
+            </center>
+        </div>
+    </center>
+</body>
+</html>
+{% endblock %}

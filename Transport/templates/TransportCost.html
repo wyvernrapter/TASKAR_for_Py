@@ -1,0 +1,72 @@
+{% extends "./_base_t.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+{{ form.certifications.errors }}
+<head>
+    <link href="{% static 'Transport/css/Transport.css' %}" rel="stylesheet">
+    <style>
+        .menu {
+          display: flex;
+          justify-content: space-between;
+          border-top: 1px solid black;
+          border-bottom: 1px solid black;
+          padding: 10px 0;
+        }
+
+        .menu-item {
+          flex-basis: 24%;
+          text-align: center;
+          border-left: 1px solid black;
+          padding: 5px 0;
+        }
+
+        .menu-item:first-child {
+          border-left: none;
+        }
+
+        .menu-link{
+          color:black;
+        }
+    </style>
+</head>
+<body>
+<center>
+    <div style="width:450px; margin-top:30px;">
+        <div class="menu">
+            <div class="menu-item">
+                <a class="menu-link" href="#">申請</a>
+            </div>
+            <div class="menu-item">
+                <a class="menu-link" href="#">交通費修正</a>
+            </div>
+            <div class="menu-item">
+                <a class="menu-link" href="#">目的駅変更</a>
+            </div>
+            <div class="menu-item">
+                <a class="menu-link" href="#">住所変更届</a>
+            </div>
+        </div>
+        <h1 style="margin-top:30px;">交通費申請</h1>
+        <div>
+            <p>{{ user.get_username }}さん</p>
+            <p>{% now "M" %}の交通費</p><br>
+            <p>合計{〇,○○〇〇}円</p>
+        </div>
+        <div>
+            <p>交通費申請区間</p>
+            <p>[長津田]駅～[渋谷]駅</p>
+        </div>
+
+        <div>
+            <hr>
+            <p>間違えがない場合は<br>下のボタンを押して<br>申請してください</p>
+            <button style="width:100px" class="btn btn-lg btn-primary" type="submit">申請</button>
+        </div>
+        <hr>
+            <img src="/media/kitasan.jpg" />
+        <hr>
+    </div>
+</center>
+</body>
+{% endblock %}
